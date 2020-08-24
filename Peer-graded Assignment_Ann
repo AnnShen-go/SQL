@@ -1,0 +1,352 @@
+
+1.
+i. Attribute table = 10000
+ii. Business table = 10000
+iii. Category table = 10000
+iv. Checkin table = 10000
+v. elite_years table = 10000
+vi. friend table = 10000
+vii. hours table = 10000
+viii. photo table = 10000
+ix. review table = 10000
+x. tip table = 10000
+xi. user table = 10000
+
+2. 
+i. Business = 10000
+SELECT COUNT(distinct id)
+FROM business
+
+ii. Hours = 1562
+SELECT COUNT(distinct business_id)
+FROM Hours
+
+iii. Category =2643
+SELECT COUNT(distinct business_id)
+FROM category
+
+iv. Attribute = 1115 
+SELECT COUNT(distinct business_id)
+FROM attribute
+
+v. Review = 10000
+SELECT COUNT(distinct id)
+FROM review
+
+vi. Checkin = 493
+SELECT COUNT(distinct business_id)
+FROM Checkin
+
+vii. Photo = 10000
+SELECT COUNT(distinct id)
+FROM Photo
+
+viii. Tip = 537
+SELECT COUNT(distinct user_id)
+FROM  Tip
+
+ix. User = 10000
+SELECT COUNT(distinct id)
+FROM  User
+
+x. Friend = 11
+SELECT COUNT(distinct user_id )
+FROM  Friend 
+
+xi. Elite_years = 2780
+SELECT COUNT(distinct user_id)
+FROM  Elite_years
+
+
+3. Are there any columns with null values in the Users table? Indicate "yes," or "no."
+
+--	Answer: "no"
+
+select 
+    sum(case when id is null then 1 else 0 end) as id
+    ,sum(case when name is null then 1 else 0 end) as name
+    ,sum(case when review_count is null then 1 else 0 end) as review_count 
+    ,sum(case when yelping_since is null then 1 else 0 end) as yelping_since
+    ,sum(case when useful is null then 1 else 0 end) as useful
+    ,sum(case when funny is null then 1 else 0 end) as funny 
+    ,sum(case when cool is null then 1 else 0 end) as cool
+    ,sum(case when fans is null then 1 else 0 end) as fans
+    ,sum(case when average_stars is null then 1 else 0 end) as average_stars 
+    ,sum(case when compliment_hot is null then 1 else 0 end) as compliment_hot 
+    ,sum(case when compliment_more is null then 1 else 0 end) as compliment_more
+    ,sum(case when compliment_profile is null then 1 else 0 end) as compliment_profile
+    ,sum(case when compliment_cute is null then 1 else 0 end) as compliment_cute
+    ,sum(case when compliment_list is null then 1 else 0 end) as compliment_list
+    ,sum(case when compliment_note is null then 1 else 0 end) as compliment_note
+    ,sum(case when compliment_plain is null then 1 else 0 end) as compliment_plain
+    ,sum(case when compliment_cool is null then 1 else 0 end) as compliment_cool
+    ,sum(case when compliment_funny is null then 1 else 0 end) as compliment_funny
+    ,sum(case when compliment_writer is null then 1 else 0 end) as compliment_writer
+    ,sum(case when compliment_photos is null then 1 else 0 end) as compliment_photos
+from user
+
+
+
+4.
+i. Table: Review, Column: Stars
+	
+		min:1		max:5		avg:3.7082
+		
+	
+	ii. Table: Business, Column: Stars
+	
+		min:1		max:5		avg:3.6549
+		
+	
+	iii. Table: Tip, Column: Likes
+	
+		min:0		max:2	avg: 0.0144
+		
+	
+	iv. Table: Checkin, Column: Count
+	
+		min:1		max:53		avg:1.9414 
+		
+	
+	v. Table: User, Column: Review_count
+	
+		min:0		max:2000		avg:24.2995
+
+5. 
+SELECT city, sum(review_count) AS total_review
+FROM  business
+GROUP BY city
+ORDER BY  total_review DESC
++-----------------+--------------+
+| city            | total_review |
++-----------------+--------------+
+| Las Vegas       |        82854 |
+| Phoenix         |        34503 |
+| Toronto         |        24113 |
+| Scottsdale      |        20614 |
+| Charlotte       |        12523 |
+| Henderson       |        10871 |
+| Tempe           |        10504 |
+| Pittsburgh      |         9798 |
+| Montréal        |         9448 |
+| Chandler        |         8112 |
+| Mesa            |         6875 |
+| Gilbert         |         6380 |
+| Cleveland       |         5593 |
+| Madison         |         5265 |
+| Glendale        |         4406 |
+| Mississauga     |         3814 |
+| Edinburgh       |         2792 |
+| Peoria          |         2624 |
+| North Las Vegas |         2438 |
+| Markham         |         2352 |
+| Champaign       |         2029 |
+| Stuttgart       |         1849 |
+| Surprise        |         1520 |
+| Lakewood        |         1465 |
+| Goodyear        |         1155 |
++-----------------+--------------+
+(Output limit exceeded, 25 of 362 total rows shown)
+
+6. 
+i. Avon
+SELECT stars
+	,COUNT(*) AS Star_Rating
+FROM business
+WHERE city = 'Avon'
+GROUP BY stars
+
++-------+-------------+
+| stars | Star_Rating |
++-------+-------------+
+|   1.5 |           1 |
+|   2.5 |           2 |
+|   3.5 |           3 |
+|   4.0 |           2 |
+|   4.5 |           1 |
+|   5.0 |           1 |
++-------+-------------+
+
+ii 
+SELECT stars
+	,COUNT(*) AS Star_Rating
+FROM business
+WHERE city = 'Beachwood'
+GROUP BY stars
+
++-------+-------------+
+| stars | Star_Rating |
++-------+-------------+
+|   2.0 |           1 |
+|   2.5 |           1 |
+|   3.0 |           2 |
+|   3.5 |           2 |
+|   4.0 |           1 |
+|   4.5 |           2 |
+|   5.0 |           5 |
++-------+-------------+
+
+7. 
+SELECT id, name, review_count
+FROM user
+ORDER BY review_count DESC
+LIMIT 3;
+
++------------------------+--------+--------------+
+| id                     | name   | review_count |
++------------------------+--------+--------------+
+| -G7Zkl1wIWBBmD0KRy_sCw | Gerald |         2000 |
+| -3s52C4zL_DHRK0ULG6qtg | Sara   |         1629 |
+| -8lbUNlXVSoXqaRRiHiSNg | Yuri   |         1339 |
++------------------------+--------+--------------+
+
+
+8.
+I found no correlation between fans and the number of reviews. 
+SELECT fans, review_count
+FROM user
+ORDER BY review_count DESC
+
+9. 
+
+Text with LOVE more than HATE.
+
+a method
+
+SELECT sum(text like '%love%') AS LOVE, sum(text like '%hate%') AS HATE
+FROM review;
++------+------+
+| LOVE | HATE |
++------+------+
+| 1780 |  232 |
++------+------+
+
+b method
+SELECT COUNT(*) FROM
+  
+	(SELECT *
+  
+	FROM review 
+	WHERE text like '%hate%');
+
+	
+SELECT COUNT(*) FROM
+  
+	(SELECT *
+  
+	FROM review 
+	WHERE text like '%love%');
+
+
+
+10. 
+SELECT  id, name, fans
+FROM user 
+ORDER BY fans DESC
+LIMIT 10;
+
++------------------------+-----------+------+
+| id                     | name      | fans |
++------------------------+-----------+------+
+| -9I98YbNQnLdAmcYfb324Q | Amy       |  503 |
+| -8EnCioUmDygAbsYZmTeRQ | Mimi      |  497 |
+| --2vR0DIsmQ6WfcSzKWigw | Harald    |  311 |
+| -G7Zkl1wIWBBmD0KRy_sCw | Gerald    |  253 |
+| -0IiMAZI2SsQ7VmyzJjokQ | Christine |  173 |
+| -g3XIcCb2b-BD0QBCcq2Sw | Lisa      |  159 |
+| -9bbDysuiWeo2VShFJJtcw | Cat       |  133 |
+| -FZBTkAZEXoP7CYvRV2ZwQ | William   |  126 |
+| -9da1xk7zgnnfO1uTVYGkA | Fran      |  124 |
+| -lh59ko3dxChBSZ9U7LfUw | Lissa     |  120 |
++------------------------+-----------+------+
+
+PART II 
+
+1. 
+I chose city is Las Vegas and category is Shopping.
+
+i. Do the two groups you chose to analyze have a different distribution of hours?
+
+Yes, the group with 2-3 stars has a wider schedule.
+
+ii. Do the two groups you chose to analyze have a different number of reviews?
+
+Yes, the group with 4-5 stars has more reviews.
+         
+iii. Are you able to infer anything from the location data provided between these two groups? Explain.
+
+No, both groups are in different locations.
+
+SELECT b.name
+	,b.city
+	,b.postal_code
+	,c.category
+	,b.review_count
+	,b.stars
+	,h.hours
+	,CASE 
+		WHEN b.stars BETWEEN 2
+				AND 3
+			THEN '2-3 stars'
+		WHEN b.stars BETWEEN 4
+				AND 5
+			THEN '4-5 stars'
+		ELSE NULL
+		END AS Star_Group
+FROM business b
+INNER JOIN hours h ON b.id = h.business_id
+INNER JOIN category c ON b.id = c.business_id
+WHERE c.category = 'Shopping'
+	AND b.city = 'Las Vegas' AND (star_group = '2-3' or star_group ='4-5')
+
+
+
+2. 
+
+SELECT b.is_open, b.review_count, b.stars
+FROM business b
+GROUP BY is_open
+
+
+Difference: Stars, opened business have a higher number of star rating  
+Difference: review_count, opened business have a higher number of reviews
+
+PART III
+
+I would like to analyze which categories of the business are awarded as the best in the cities. Therefore, I selected stars and calculated how many stars there are belong to the category and cities. People can find the results clearly what cities are on top of which categories.  
+
++-------+----------------+-------------------------+------------+
+| stars | count(b.stars) | category                | city       |
++-------+----------------+-------------------------+------------+
+|   5.0 |              5 | Bakeries                | Chandler   |
+|   5.0 |              4 | Fashion                 | Pittsburgh |
+|   5.0 |              3 | Chiropractors           | Las Vegas  |
+|   5.0 |              3 | Desserts                | Chandler   |
+|   5.0 |              3 | Hiking                  | Phoenix    |
+|   5.0 |              2 | Auto Detailing          | Charlotte  |
+|   5.0 |              2 | Car Wash                | Charlotte  |
+|   5.0 |              2 | Education               | Chandler   |
+|   5.0 |              2 | Pet Services            | Surprise   |
+|   5.0 |              2 | Pets                    | Surprise   |
+|   5.0 |              2 | Salad                   | Mesa       |
+|   5.0 |              1 | Arabian                 | Mesa       |
+|   5.0 |              1 | Bike Repair/Maintenance | Pittsburgh |
+|   5.0 |              1 | Bikes                   | Pittsburgh |
+|   5.0 |              1 | Blow Dry/Out Services   | Henderson  |
+|   5.0 |              1 | Carpet Installation     | Charlotte  |
+|   5.0 |              1 | Child Care & Day Care   | Chandler   |
+|   5.0 |              1 | Colonics                | Tempe      |
+|   5.0 |              1 | Department Stores       | Chandler   |
+|   5.0 |              1 | Discount Store          | Chandler   |
+|   5.0 |              1 | Dog Walkers             | Surprise   |
+|   5.0 |              1 | Door Sales/Installation | Chandler   |
+|   5.0 |              1 | Electronics Repair      | Sun City   |
+|   5.0 |              1 | Elementary Schools      | Chandler   |
+|   5.0 |              1 | Garage Door Services    | Chandler   |
++-------+----------------+-------------------------+------------+
+(Output limit exceeded, 25 of 257 total rows shown)
+
+SELECT b.stars, b.review_count, c.category, b.city
+FROM business b JOIN category c ON c.business_id=b.id
+ORDER BY  stars DESC, b.review_count DESC
+
